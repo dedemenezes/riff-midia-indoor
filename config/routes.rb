@@ -3,7 +3,7 @@ Rails.application.routes.draw do
     mount_avo
   end
   resources :rooms, only: :show
-  resources :media_files, only: %i[ new create ]
+  resources :presentations, only: %i[ new create ]
 
   devise_for :users
   root to: "pages#home"

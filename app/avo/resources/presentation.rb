@@ -1,6 +1,6 @@
 module Avo
   module Resources
-    class MediaFile < Avo::BaseResource
+    class Presentation < Avo::BaseResource
       # self.includes = []
       # self.attachments = []
       # self.search = {

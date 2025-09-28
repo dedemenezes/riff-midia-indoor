@@ -1,4 +1,4 @@
 class Room < ApplicationRecord
-  has_many :media_files
+  has_many :presentations
   validates :name, presence: true
 end
