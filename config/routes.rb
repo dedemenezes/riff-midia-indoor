@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  authenticated :user, ->(u) { u.admin? } do
+    mount_avo
+  end
   resources :rooms, only: :show
   resources :media_files, only: %i[ new create ]
 
