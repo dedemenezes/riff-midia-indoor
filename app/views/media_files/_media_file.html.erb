@@ -1,0 +1,10 @@
+<div
+  class="w-100 bg-black text-white d-flex justify-content-center align-items-center"
+  style="height: 100dvh;"
+  id="<%= dom_id(media_file) %>"
+>
+  <h2><%= media_file.title %></h2>
+</div>
+<% if media_file.image.attached? %>
+  <%= cl_image_tag media_file.image.key %>
+<% end %>
