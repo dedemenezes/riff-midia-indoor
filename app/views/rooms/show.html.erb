@@ -1,8 +1,8 @@
-<div class="container">
-  <div class="row justify-content-center">
-    <h1><%= @room.name %></h1>
-    <% if @media_file %>
-      <%= cl_image_tag @media_file.image.key %>
-    <% end %>
+<div class="row justify-content-center">
+  <div class="w-100 bg-black text-white d-flex justify-content-center align-items-center" style="height: 100dvh;">
+    <h2><%= @media_file.title %></h2>
   </div>
+  <% if @media_file.image.attached? %>
+    <%= cl_image_tag @media_file.image.key %>
+  <% end %>
 </div>
