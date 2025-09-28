@@ -4,6 +4,7 @@ class Presentation < ApplicationRecord
 
   before_save :deactivate_other_presentations, if: :will_save_change_to_active?
   after_update_commit :broadcast_presentation
+  after_update_commit :broadcast_next_presentation
 
   private
 
@@ -11,6 +12,18 @@ class Presentation < ApplicationRecord
     return unless active?
 
     room.presentations.where.not(id: id).update_all(active: false)
+  end
+
+  def broadcast_next_presentation
+    sorted_presentations = room.presentations.order(start_time: :asc)
+    active_presentation_index = sorted_presentations.index(self)
+    if active_presentation_index
+      next_presentation = sorted_presentations[active_presentation_index + 1]
+      broadcast_replace_to "room_#{room.id}_presentations",
+                           partial: "presentations/next_presentation",
+                           target: "next-presentation",
+                           locals: { next_presentation: next_presentation }
+    end
   end
 
   def broadcast_presentation
