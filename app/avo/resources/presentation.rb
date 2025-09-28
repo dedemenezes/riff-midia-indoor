@@ -8,11 +8,11 @@ module Avo
       # }
 
       def fields
-        field :id, as: :id
+        field :id, as: :id, sortable: false
         field :title, as: :text
-        field :start_time, as: :date_time
-        field :end_time, as: :date_time
-        field :active, as: :boolean
+        field :start_time, as: :date_time, sortable: true
+        field :end_time, as: :date_time, sortable: true
+        field :active, as: :boolean, sortable: true
         # field :room_id, as: :number
         field :image, as: :file
         field :room, as: :belongs_to
