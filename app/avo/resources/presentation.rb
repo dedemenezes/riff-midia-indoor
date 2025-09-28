@@ -1,6 +1,8 @@
 module Avo
   module Resources
     class Presentation < Avo::BaseResource
+      self.default_sort_column = :start_time
+      self.default_sort_direction = :asc
       # self.includes = []
       # self.attachments = []
       # self.search = {

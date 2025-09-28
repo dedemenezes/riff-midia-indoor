@@ -1,5 +1,8 @@
 <%= turbo_stream_from "room_#{@room.id}_presentations" %>
 
-<div class="row justify-content-center">
+<div class="row justify-content-center relative">
   <%= render @presentation %>
+  <p class="text-white position-absolute bottom-0">
+    Próxima palestra: <%= @next_presentation.title %>
+  </p>
 </div>
