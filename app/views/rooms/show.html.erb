@@ -1,0 +1,8 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <h1><%= @room.name %></h1>
+    <% if @media_file %>
+      <%= cl_image_tag @media_file.image.key %>
+    <% end %>
+  </div>
+</div>

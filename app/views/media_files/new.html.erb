@@ -1,0 +1,13 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <h1>New Media File</h1>
+    <%= simple_form_for @media_file do |f| %>
+      <%= f.association :room %>
+      <%#= f.input :start_time %>
+      <%#= f.input :end_time %>
+      <%= f.input :image, as: :file %>
+      <%= f.input :active %>
+      <%= f.submit %>
+    <% end %>
+  </div>
+</div>
