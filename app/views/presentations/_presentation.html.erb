@@ -1,11 +1,5 @@
 <div id="media-file-content">
-  <div
-    class="w-100 bg-black text-white d-flex justify-content-center align-items-center"
-    style="height: 100dvh;"
-    id="<%= dom_id(presentation) %>"
-  >
-    <h2><%= presentation.title %></h2>
-  </div>
+    <h1 class='mb-0'><%= presentation.title %></h1>
 
   <% if presentation.image.attached? %>
     <%= cl_image_tag presentation.image.key %>

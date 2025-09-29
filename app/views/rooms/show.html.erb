@@ -1,8 +1,14 @@
 <%= turbo_stream_from "room_#{@room.id}_presentations" %>
 
-<div class="row justify-content-center relative">
-  <% if @presentation %>
-    <%= render @presentation %>
-    <%= render "presentations/next_presentation", next_presentation: @next_presentation %>
-  <% end %>
+<div class="row justify-content-center">
+  <div
+    class="w-100 bg-black text-white d-flex flex-column  justify-content-between align-items-center relative"
+    style="height: 95vh;"
+  >
+    <h1 class='mb-0'><%= @room.name %></h1>
+    <% if @presentation %>
+      <%= render @presentation %>
+      <%= render "presentations/next_presentation", next_presentation: @next_presentation %>
+    <% end %>
+  </div>
 </div>

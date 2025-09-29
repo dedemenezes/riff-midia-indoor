@@ -10,7 +10,7 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body class='bg-black py-4' style='width: 95vw; height: 94vh;' data-controller='fullscreen' data-action='click->fullscreen#enterFullscreen touchstart->fullscreen#enterFullscreen'>
     <%= yield %>
   </body>
 </html>
