@@ -3,6 +3,8 @@ Rails.application.routes.draw do
     mount_avo
     mount MissionControl::Jobs::Engine, at: "/jobs"
   end
+  get '/avo', to: redirect('/users/sign_in')
+  get '/jobs', to: redirect('/users/sign_in')
 
   resources :rooms, only: :show
   resources :presentations, only: %i[ new create ]
