@@ -56,6 +56,8 @@ gem 'cloudinary', '~> 2.4'
 gem "avo", ">= 3.2.1"
 
 gem "solid_cable"
+gem "solid_queue"
+gem "mission_control-jobs"
 
 group :development, :test do
   gem "dotenv-rails"
