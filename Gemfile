@@ -54,10 +54,10 @@ gem "sassc-rails"
 gem 'cloudinary', '~> 2.4'
 
 gem "avo", ">= 3.2.1"
-
 gem "solid_cable"
 gem "solid_queue"
 gem "mission_control-jobs"
+gem "faker"
 
 group :development, :test do
   gem "dotenv-rails"
@@ -74,8 +74,6 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
-
-  gem "faker"
 end
 
 group :test do
