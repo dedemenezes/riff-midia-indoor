@@ -7,10 +7,10 @@ Rails.application.routes.draw do
   get '/jobs', to: redirect('/users/sign_in')
 
   resources :rooms, only: :show
-  resources :presentations, only: %i[ new create ]
+  # resources :presentations, only: %i[ new create ]
 
   devise_for :users
-  root to: "pages#home"
+  root to: "presentations#index"
 
   get "up" => "rails/health#show", as: :rails_health_check
 end

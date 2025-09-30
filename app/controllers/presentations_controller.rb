@@ -1,4 +1,13 @@
 class PresentationsController < ApplicationController
+  skip_before_action :authenticate_user!
+  before_action do
+    I18n.locale = :'pt-BR'
+  end
+
+  def index
+    @presentations = Presentation.all
+  end
+
   def new
     @presentation = Presentation.new
   end
