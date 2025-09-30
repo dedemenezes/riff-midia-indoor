@@ -61,7 +61,7 @@ date_range.each do |date|
         break if attempt > max_attempts
 
         # Generate random time between am and 3:45pm
-        hour = rand(9..15)
+        hour = rand(11..15)
         minute = [0, 15, 30, 45].sample
 
         start_time = date.beginning_of_day + hour.hours + minute.minutes
