@@ -1,4 +1,13 @@
 class Presentation < ApplicationRecord
+  CATEGORIES = [
+    "Exibição",
+    "Masterclass",
+    "Rodadas de Negócios",
+    "Round table",
+    "Seminars",
+    "Workshops"
+  ]
+
   belongs_to :room
   has_one_attached :image
 

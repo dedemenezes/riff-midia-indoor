@@ -4,7 +4,7 @@
   <div class="col-2 d-flex align-self-center" style="height: 100%;">
     <div class="d-flex gap-3 align-items-center">
       <div style="width: 8px; height: 8px; background-color:rgb(168, 85, 247)" class="rounded-circle"></div>
-      <p class="mb-0 fw-semibold">Workshop</p>
+      <p class="mb-0 fw-semibold"><%= presentation.category %></p>
     </div>
   </div>
 
@@ -16,7 +16,7 @@
         <i class="fa-solid fa-users me-1 text-secondary" style="font-size: 12px;"></i>
         <%= presentation.presenter_name %>
       </p>
-      <%# <p style="font-size: 14px" class="mb-0 text-secondary">Workshop introdutório sobre coordenação de intimidade no teatro e audiovisual.</p> %>
+      <p style="font-size: 14px" class="mb-0 text-secondary">Workshop introdutório sobre coordenação de intimidade no teatro e audiovisual.</p>
     </div>
   </div>
 
@@ -43,8 +43,10 @@
 
     </div>
   </div>
-  <div class="col-2">
-    <%= presentation_badge(presentation) %>
+  <div class="col-2 d-flex align-self-center">
+    <div class="d-flex gap-3 align-items-center">
+      <%= presentation_badge(presentation) %>
+    </div>
   </div>
 
 </div>

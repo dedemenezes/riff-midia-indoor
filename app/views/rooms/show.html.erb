@@ -11,8 +11,8 @@
           <h1 class='mb-0'><%= @room.name %></h1>
           <% if @presentation %>
             <%= render @presentation %>
-            <%= render "presentations/next_presentation", next_presentation: @next_presentation %>
           <% end %>
+          <%= render "presentations/next_presentation", next_presentation: @next_presentation %>
         </div>
 
       </div>
