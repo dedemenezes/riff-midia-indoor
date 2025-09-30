@@ -12,14 +12,14 @@ module Avo
       def fields
         field :id, as: :id, sortable: false
         field :title, as: :text
+        field :active, as: :boolean, sortable: true
         field :presenter_name, as: :text
         field :category, as: :select, options: ::Presentation::CATEGORIES.map { |c| [c, c] }.to_h
-        field :description, as: :text
+        field :description, as: :text, hide_on: %i[index]
         field :start_time, as: :date_time, sortable: true
         field :end_time, as: :date_time, sortable: true
-        field :active, as: :boolean, sortable: true
         # field :room_id, as: :number
-        field :image, as: :file
+        field :image, as: :file, visible: -> { resource.record.image.present? }
         field :room, as: :belongs_to
       end
     end
