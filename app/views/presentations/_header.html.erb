@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <div class="d-flex justify-content-between py-4">
+
+        <%# LEFT %>
+        <div class="d-flex flex-column gap-2">
+          <h1 class="mb-0 fw-bold fs-1">EVENTOS</h1>
+          <p class="mb-0 text-muted">Programação completa do evento</p>
+        </div>
+
+        <%# RIGHT %>
+        <div class="d-flex flex-column gap-2">
+          <p class="mb-0 fw-bold fs-1">
+            <%= Time.current.strftime('%H:%M') %>
+          </p>
+          <p class="mb-0 text-muted">
+            <%= I18n.l(Date.today, format: :custom) %>
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

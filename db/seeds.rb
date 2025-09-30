@@ -1,6 +1,5 @@
 User.destroy_all
 User.create!(email: 'admin@festivaldorio.com.br', password: 'festrio2025', admin: true)
-# db/seeds.rb
 
 # Clear existing data
 puts "🗑️  Clearing existing data..."
@@ -26,9 +25,10 @@ puts "✅ Created #{rooms.count} rooms"
 # Create presentations
 puts "🎭 Creating presentations..."
 
-# Date range: October 2-7, 2025
-start_date = Date.parse("2025-10-02")
-end_date = Date.parse("2025-10-07")
+# Continuous 6-day date range starting today (including weekends)
+start_date = Date.today
+end_date = start_date + 1.day
+date_range = (start_date..end_date).to_a
 
 # Presentation topics for variety
 tech_topics = [
@@ -44,19 +44,15 @@ tech_topics = [
 
 presentation_count = 0
 
-(start_date..end_date).each do |date|
-  # Skip weekends if you want
-  next if date.saturday? || date.sunday?
-
+date_range.each do |date|
   # Track used time slots to avoid conflicts per room
   room_schedules = Hash.new { |h, k| h[k] = [] }
 
-  # Ensure each room gets 2-3 presentations per day
+  # Ensure each room gets 2–3 presentations per day
   rooms.each do |room|
     presentations_for_room = rand(2..3)
 
-    presentations_for_room.times do |slot|
-      # Generate non-conflicting time slots
+    presentations_for_room.times do
       max_attempts = 10
       attempt = 0
 
@@ -64,8 +60,8 @@ presentation_count = 0
         attempt += 1
         break if attempt > max_attempts
 
-        # Generate random time between 10am and 4pm (to leave room for end times)
-        hour = rand(10..15)
+        # Generate random time between am and 3:45pm
+        hour = rand(11..15)
         minute = [0, 15, 30, 45].sample
 
         start_time = date.beginning_of_day + hour.hours + minute.minutes
@@ -77,12 +73,11 @@ presentation_count = 0
         # Skip if end time goes past 5:30pm
         next if end_time > date.beginning_of_day + 17.5.hours
 
-        # Ensure no time conflicts in the same room (at least 15 min buffer)
+        # Ensure no conflicts in same room (15 min buffer)
         conflict = room_schedules[room.id].any? do |existing_time|
           (start_time - existing_time).abs < 75.minutes
         end
 
-        # If no conflict, create the presentation
         unless conflict
           room_schedules[room.id] << start_time
 
@@ -92,7 +87,7 @@ presentation_count = 0
             start_time: start_time,
             end_time: end_time,
             room: room,
-            active: false # Start with all inactive
+            active: false # Start as inactive
           )
 
           presentation_count += 1
@@ -109,7 +104,7 @@ puts "✅ Created #{presentation_count} presentations"
 puts "🎯 Activating current presentations..."
 
 rooms.each do |room|
-  # Find a presentation that's either happening now or soon
+  # Find a presentation that's either happening now or starting soon
   current_or_upcoming = room.presentations
     .where("start_time >= ?", Time.current - 1.hour)
     .order(:start_time)
@@ -126,4 +121,4 @@ puts "📊 Summary:"
 puts "   - Rooms: #{Room.count}"
 puts "   - Presentations: #{Presentation.count}"
 puts "   - Active presentations: #{Presentation.where(active: true).count}"
-puts "   - Date range: #{Presentation.minimum(:start_time)&.strftime('%b %d')} to #{Presentation.maximum(:start_time)&.strftime('%b %d, %Y')}"
+puts "   - Date range: #{start_date.strftime('%b %d')} to #{end_date.strftime('%b %d, %Y')}"

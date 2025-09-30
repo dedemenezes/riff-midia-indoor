@@ -1,4 +1,32 @@
 class PresentationsController < ApplicationController
+  skip_before_action :authenticate_user!
+  before_action do
+    I18n.locale = :'pt-BR'
+  end
+
+  def index
+    now = Time.current
+
+    @presentations_by_room = Room.includes(:presentations).map do |room|
+      active = room.presentations.find do |p|
+        p.start_time <= now && p.end_time >= now
+      end
+
+      upcoming = room.presentations
+                     .where("start_time > ?", now)
+                     .order(start_time: :asc)
+                     .to_a
+
+      presentations = []
+      presentations << active if active
+      presentations.concat(upcoming).uniq!
+
+      # Garantir no máximo 2 apresentações
+      [room, presentations.first(2)]
+    end.to_h
+  end
+
+
   def new
     @presentation = Presentation.new
   end
