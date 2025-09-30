@@ -1,7 +1,9 @@
-<div class="bg-white" style="height: 18vh;">
-  <%= render "header" %>
-</div>
+<div class='row' style="background-image: url('<%= asset_path("Fundo_1.png") %>'); background-size: cover; background-position: center;">
+  <div style="height: 14vh;">
+    <%= render "header" %>
+  </div>
 
-<div>
-  <%= render "presentations_table", presentations_by_room: @presentations_by_room %>
+  <div>
+    <%= render "presentations_table", presentations_by_room: @presentations_by_room %>
+  </div>
 </div>
