@@ -36,10 +36,16 @@
         <div class="container">
 
           <%# TABLE.HEADER %>
-          <div class="row px-3 py-3 text-white fw-bolder fs-5">
-            <div class="col-2">TIPO</div>
-            <div class="col-6">EVENTO</div>
-            <div class="col-4">DATA/HORÁRIO/SALA</div>
+          <div class="row px-3 py-3">
+            <div class="col-2">
+              <p class="mb-0 text-white fw-semibold">TIPO</p>
+            </div>
+            <div class="col-6">
+              <p class="mb-0 text-white fw-semibold">EVENTO</p>
+              </div>
+            <div class="col-4">
+              <p class="mb-0 text-white fw-semibold">DATA/HORÁRIO/SALA</p>
+            </div>
           </div>
 
           <%# TABLE.BODY %>
@@ -71,21 +77,21 @@
                 <div class="d-flex flex-column gap-2 justify-content-start">
 
                   <%# PRESENTATION.DATE %>
-                  <div class="d-flex gap-3">
+                  <div class="d-flex align-items-center gap-3">
                     <i style="color: #e1219a;" class="fa-solid fa-calendar"></i>
-                    28/10/2025
+                    <p class="mb-0 fw-semibold">28/10/2025</p>
                   </div>
 
                   <%# PRESENTATION.TIME %>
-                  <div class="d-flex gap-3">
+                  <div class="d-flex align-items-center gap-3">
                     <i style="color: #e1219a;" class="fa-solid fa-clock"></i>
-                    10:00 - 12:00
+                    <p class="mb-0">10:00 - 12:00</p>
                   </div>
 
                   <%# PRESENTATION.ROOM %>
-                  <div class="d-flex gap-3">
+                  <div class="d-flex align-items-center gap-3">
                     <i style="color: #e1219a;" class="fa-solid fa-location-dot"></i>
-                    Sala 1
+                    <p class="mb-0">Sala 1</p>
                   </div>
                   <span class="badge rounded-pill text-bg-success w-50">Em andamento</span>
                 </div>
