@@ -2,7 +2,7 @@ pt-BR:
   date:
     formats:
       default: "%d de %B de %Y"        # ex: 30 de setembro de 2025
-      short: "%d/%m"                   # ex: 30/09
+      short: "%d/%m/%Y"                   # ex: 30/09
       custom: "%A, %d de %B, %Y"           # ex: terça-feira, 30 de setembro
     day_names:
       - "Domingo"
