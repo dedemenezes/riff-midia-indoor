@@ -31,5 +31,8 @@ module RiffMidiaIndoor
     # config.eager_load_paths << Rails.root.join("extras")
     config.active_job.queue_adapter = :solid_queue
     config.mission_control.jobs.http_basic_auth_enabled = false
+
+    config.time_zone = "America/Sao_Paulo"       # <- your local timezone
+    config.active_record.default_timezone = :local
   end
 end
