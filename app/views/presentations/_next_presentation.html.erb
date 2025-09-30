@@ -1,5 +1,5 @@
 <p class="text-white mb-0 fs-5 align-self-start" id="next-presentation">
   <% if next_presentation %>
-    Próxima palestra: <%= next_presentation.title %>
+    Próxima palestra: <%= next_presentation.title %> (<%= next_presentation.start_time.strftime('%H:%M') %>)
   <% end %>
 </p>

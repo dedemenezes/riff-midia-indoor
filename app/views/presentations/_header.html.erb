@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" data-controller="clock">
   <div class="row">
     <div class="col-12">
       <div class="d-flex justify-content-between py-4">
@@ -11,12 +11,12 @@
 
         <%# RIGHT %>
         <div class="d-flex flex-column gap-2">
-          <p class="mb-0 fw-bold fs-1">
-            <%= Time.current.strftime('%H:%M') %>
-          </p>
-          <p class="mb-0 text-muted">
-            <%= I18n.l(Date.today, format: :custom) %>
-          </p>
+          <p class="mb-0 fw-bold fs-1" data-clock-target="time">
+            <!-- Will be replaced by JS -->
+            <%= Time.current.strftime('%H:%M') %>          </p>
+          <p class="mb-0 text-muted" data-clock-target="date">
+            <!-- Optional: Will be replaced by JS -->
+            <%= I18n.l(Date.today, format: :custom) %>          </p>
         </div>
 
       </div>
