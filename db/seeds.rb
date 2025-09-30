@@ -27,7 +27,7 @@ puts "🎭 Creating presentations..."
 
 # Continuous 6-day date range starting today (including weekends)
 start_date = Date.today
-end_date = start_date + 5.days
+end_date = start_date + 1.day
 date_range = (start_date..end_date).to_a
 
 # Presentation topics for variety
@@ -60,8 +60,8 @@ date_range.each do |date|
         attempt += 1
         break if attempt > max_attempts
 
-        # Generate random time between 10am and 3:45pm
-        hour = rand(10..15)
+        # Generate random time between am and 3:45pm
+        hour = rand(9..15)
         minute = [0, 15, 30, 45].sample
 
         start_time = date.beginning_of_day + hour.hours + minute.minutes
