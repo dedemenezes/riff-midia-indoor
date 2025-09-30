@@ -2,8 +2,8 @@ class PresentationAutoUpdateJob < ApplicationJob
   queue_as :default
 
   def perform(*args)
-    # @current_time = DateTime.new(2025,10,3, 11, 16)
-    @current_time = Time.current
+    @current_time = DateTime.new(2025,9,30, 17, 29)
+    # @current_time = Time.current
 
     # deactivate presentations
     expired_presentations.find_each do |presentation|
