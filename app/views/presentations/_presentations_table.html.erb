@@ -5,7 +5,7 @@
 
       <%= render "table_header" %>
       <div id="presentation-slideshow" data-controller="slideshow">
-        <% all_presentations.each_slice(4).with_index do |group, page_index| %>
+        <% all_presentations.each_slice(2).with_index do |group, page_index| %>
           <div class="slide-page <%= 'active' if page_index == 0 %>" data-slideshow-target="slide">
             <% group.each_with_index do |presentation, presentation_index| %>
               <%= render "presentation_row", presentation: presentation, index: presentation_index %>
