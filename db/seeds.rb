@@ -76,6 +76,7 @@ date_range.each do |date|
             end_time: end_time,
             room: room,
             category: Presentation::CATEGORIES.sample,
+            description: "Workshop introdutório sobre coordenação de intimidade no teatro e audiovisual.",
             active: false
           )
 

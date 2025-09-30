@@ -14,6 +14,7 @@ module Avo
         field :title, as: :text
         field :presenter_name, as: :text
         field :category, as: :select, options: ::Presentation::CATEGORIES.map { |c| [c, c] }.to_h
+        field :description, as: :text
         field :start_time, as: :date_time, sortable: true
         field :end_time, as: :date_time, sortable: true
         field :active, as: :boolean, sortable: true
