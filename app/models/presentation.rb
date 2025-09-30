@@ -49,5 +49,9 @@ class Presentation < ApplicationRecord
                            locals: { presentation: mf }
     end
 
+    broadcast_replace_to "presentations",
+                         partial: "presentations/presentation_row",
+                         locals: { presentation: self },
+                         target: "presentation_#{self.id}"
   end
 end
