@@ -14,7 +14,7 @@ class Presentation < ApplicationRecord
   has_one_attached :image
 
   before_save :deactivate_other_presentations, if: :will_save_change_to_active?
-  after_update_commit :broadcast_room_presentations, if: :saved_change_to_active?
+  after_update_commit :broadcast_room_presentations
   after_update_commit :broadcast_presentation
   after_update_commit :broadcast_next_presentation
 
@@ -56,13 +56,13 @@ class Presentation < ApplicationRecord
                            partial: "presentations/content",
                            target: "presentation-content",
                            locals: { presentation: mf }
-      end
+    end
       #  target: "presentation-#{self.id}",
 
-    broadcast_replace_to "presentations",
-                         partial: "presentations/presentation_row",
-                         locals: { presentation: self },
-                         target: "presentation_#{self.id}"
+    # broadcast_replace_to "presentations",
+    #                      partial: "presentations/presentation_row",
+    #                      locals: { presentation: self },
+    #                      target: "presentation_#{self.id}"
   end
 
   def broadcast_room_presentations
@@ -75,9 +75,9 @@ class Presentation < ApplicationRecord
 
     # Find upcoming presentations for this room
     upcoming_presentations = room.presentations
-                                .where("start_time > ?", now)
-                                .order(start_time: :asc)
-                                .limit(2)
+                                 .where("start_time > ?", now)
+                                 .order(start_time: :asc)
+                                 .limit(2)
 
     # Build the array of presentations to display (max 2)
     presentations_to_display = []
@@ -86,7 +86,8 @@ class Presentation < ApplicationRecord
     presentations_to_display = presentations_to_display.uniq.first(2)
 
     # Broadcast replacement to the room's presentations wrapper
-    broadcast_replace_to "presentations_channel",
+    # binding.b
+    broadcast_replace_to "presentations",
                         target: dom_id(room, :presentations),
                         partial: "rooms/presentations",
                         locals: { room: room, presentations: presentations_to_display }
