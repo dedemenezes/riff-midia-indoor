@@ -26,9 +26,17 @@ export default class extends Controller {
     }
 
     if (this.hasDateTarget) {
-      const options = { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' }
-      const formattedDate = now.toLocaleDateString('pt-BR', options)
+      const weekday = now.toLocaleDateString('pt-BR', { weekday: 'long' })
+      const month   = now.toLocaleDateString('pt-BR', { month: 'long' })
+      const day     = now.toLocaleDateString('pt-BR', { day: '2-digit' })
+      const year    = now.toLocaleDateString('pt-BR', { year: 'numeric' })
+
+      const capitalize = str => str.charAt(0).toUpperCase() + str.slice(1)
+
+      const formattedDate = `${capitalize(weekday)}, ${day} de ${capitalize(month)} de ${year}`
       this.dateTarget.textContent = formattedDate
     }
+
+
   }
 }
