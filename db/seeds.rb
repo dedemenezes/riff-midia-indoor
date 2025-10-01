@@ -28,26 +28,27 @@ now = Time.current
 
 # Helper to generate sequential presentations per room
 def create_presentations_for_room(room, day, now)
-  start_time = day.to_time.change({ hour: 7, min: 51 }) # 4:00 PM
-  duration = 5.minutes # each presentation 1h20
+  # Use in_time_zone to ensure consistent timezone
+  start_time = day.in_time_zone.change({ hour: 7, min: 57 })
+  duration = 5.minutes
+
   4.times do |i|
     end_time = start_time + duration
     Presentation.create!(
       title: Faker::Book.title,
       start_time: start_time,
       end_time: end_time,
-      active: start_time <= now && now < end_time, # active if happening now
+      active: start_time <= now && now < end_time,
       room: room,
       presenter_name: Faker::Name.name,
       category: Presentation::CATEGORIES.sample,
       description: Faker::Lorem.sentence(word_count: 25)
     )
-    # Next presentation starts after the previous ends
     start_time = end_time
   end
 end
 
-today = Date.today
+today = Date.current # Use Date.current instead of Date.today
 tomorrow = today + 1
 
 rooms.each do |room|
@@ -55,7 +56,7 @@ rooms.each do |room|
   create_presentations_for_room(room, tomorrow, now)
 end
 
-puts "✅ Created 4 sequential presentations per room for today and tomorrow. Active presentations are set automatically."
+puts "✅ Created 4 sequential presentations per room for today and tomorrow."
 
 puts "🎉 Seed completed!"
 puts "📊 Summary:"
