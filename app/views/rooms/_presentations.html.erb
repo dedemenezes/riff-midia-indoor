@@ -1,5 +1,5 @@
 <div id="<%= dom_id(room, :presentations) %>">
   <% presentations.each_with_index do |presentation, presentation_index| %>
-    <%= render "presentation_row", presentation: presentation, index: presentation_index %>
+    <%= render "presentations/presentation_row", presentation: presentation, index: presentation_index %>
   <% end %>
 </div>
