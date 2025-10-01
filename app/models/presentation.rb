@@ -1,4 +1,6 @@
 class Presentation < ApplicationRecord
+  include ActionView::RecordIdentifier
+
   CATEGORIES = [
     "Exibição",
     "Masterclass",
