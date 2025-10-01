@@ -28,8 +28,8 @@ now = Time.current
 
 # Helper to generate sequential presentations per room
 def create_presentations_for_room(room, day, now)
-  start_time = day.to_time.change({ hour: 19, min: 0 }) # 4:00 PM
-  duration = 1.hour + 20.minutes                         # each presentation 1h20
+  start_time = day.to_time.change({ hour: 7, min: 25 }) # 4:00 PM
+  duration = 5.minutes # each presentation 1h20
   4.times do |i|
     end_time = start_time + duration
     Presentation.create!(
@@ -40,7 +40,7 @@ def create_presentations_for_room(room, day, now)
       room: room,
       presenter_name: Faker::Name.name,
       category: Presentation::CATEGORIES.sample,
-      description: Faker::Lorem.sentence(word_count: 12)
+      description: Faker::Lorem.sentence(word_count: 25)
     )
     # Next presentation starts after the previous ends
     start_time = end_time
