@@ -19,3 +19,9 @@
 .container-xxl {
   max-width: 95% !important; /* force full width */
 }
+
+#presentation-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
