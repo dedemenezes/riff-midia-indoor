@@ -29,8 +29,8 @@ now = Time.current
 # Helper to generate sequential presentations per room
 def create_presentations_for_room(room, day, now)
   # Use in_time_zone to ensure consistent timezone
-  start_time = day.in_time_zone.change({ hour: 12, min: 15 })
-  duration = 20.minutes
+  start_time = day.in_time_zone.change({ hour: 12, min: 0 })
+  duration = 30.minutes
 
   4.times do |i|
     end_time = start_time + duration
