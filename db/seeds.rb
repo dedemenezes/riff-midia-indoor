@@ -28,7 +28,7 @@ now = Time.current
 
 # Helper to generate sequential presentations per room
 def create_presentations_for_room(room, day, now)
-  start_time = day.to_time.change({ hour: 7, min: 25 }) # 4:00 PM
+  start_time = day.to_time.change({ hour: 7, min: 51 }) # 4:00 PM
   duration = 5.minutes # each presentation 1h20
   4.times do |i|
     end_time = start_time + duration
