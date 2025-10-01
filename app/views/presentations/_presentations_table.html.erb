@@ -5,15 +5,12 @@
 
       <%= render "table_header" %>
       <div id="presentation-slideshow" data-controller="slideshow">
-        <% all_presentations.each_slice(2).with_index do |group, page_index| %>
+        <% presentations_by_room.each_with_index do |(room, presentations), page_index| %>
           <div class="slide-page <%= 'active' if page_index == 0 %>" data-slideshow-target="slide">
-            <% group.each_with_index do |presentation, presentation_index| %>
-              <%= render "presentation_row", presentation: presentation, index: presentation_index %>
-            <% end %>
+            <%= render "rooms/presentations", room: room, presentations: presentations %>
           </div>
         <% end %>
       </div>
-
 
     </div>
   </div>
