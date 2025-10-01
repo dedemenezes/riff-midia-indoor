@@ -88,7 +88,7 @@ class Presentation < ApplicationRecord
     # Broadcast replacement to the room's presentations wrapper
     broadcast_replace_to "presentations_channel",
                         target: dom_id(room, :presentations),
-                        partial: "presentations/room_presentations",
+                        partial: "rooms/presentations",
                         locals: { room: room, presentations: presentations_to_display }
   end
 end
