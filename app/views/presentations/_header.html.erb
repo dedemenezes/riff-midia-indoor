@@ -5,13 +5,13 @@
 
         <%# LEFT %>
         <div class="d-flex flex-column justify-content-center align-items-center gap-2">
-          <%= image_tag "RM25_Horizontal_Branco.png", width: '200px' %>
+          <%= image_tag "RM25_Horizontal_Branco.png", width: '320px' %>
         </div>
 
         <%# RIGHT %>
         <div class="d-flex flex-column justify-content-center gap-0 text-white">
-          <p class="mb-0 fw-bold fs-1" data-clock-target="time"><%= Time.current.strftime('%H:%M') %></p>
-          <p class="mb-0 fw-semibold" data-clock-target="date"><%= I18n.l(Date.today, format: :custom) %></p>
+          <p style="font-size: 52px" class="mb-0 fw-bold" data-clock-target="time"><%= Time.current.strftime('%H:%M') %></p>
+          <p style="font-size: 22px" class="mb-0 fw-semibold" data-clock-target="date"><%= I18n.l(Date.today, format: :custom) %></p>
         </div>
 
       </div>
