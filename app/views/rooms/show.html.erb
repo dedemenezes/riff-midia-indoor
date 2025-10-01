@@ -5,33 +5,9 @@
     style="background-image: url('<%= asset_path("Fundo_1.png") %>'); background-size: cover; background-position: center;"
   >
   </div>
-  <div class="w-50 pb-5 px-4 d-flex flex-column justify-content-between">
+  <div class="w-50 pb-5 px-4 d-flex flex-column <%= @next_presentation.nil? ? '' : 'justify-content-between' %>">
     <%= image_tag "RM25_Horizontal_Preto.png", width: '240px', class: 'align-self-end justify-self-start' %>
     <%= render 'presentations/presentation', room: @room, presentation: @presentation, next_presentation: @next_presentation %>
 
   </div>
 </div>
-
-<% if false %>
-  <div
-    class=""
-    style="background-image: url('<%= asset_path("Fundo_1.png") %>'); background-size: cover; background-position: center;"
-    data-controller='fullscreen'
-    data-action='click->fullscreen#enterFullscreen touchstart->fullscreen#enterFullscreen'
-  >
-    <div style="height: 14vh;">
-      <%= render "presentations/header" %>
-    </div>
-
-  <div class="row justify-content-center" style="height: 86vh;">
-    <div class="col-12 d-flex align-items-center">
-      <div class="container text-white">
-            <h1 class='mb-0 fw-normal' style="font-size: 32px"><%= @room.name %></h1>
-            <% if @presentation %>
-              <%= render @presentation %>
-            <% end %>
-            <%= render "presentations/next_presentation", next_presentation: @next_presentation %>
-      </div>
-    </div>
-  </div>
-<% end %>
