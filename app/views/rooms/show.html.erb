@@ -1,6 +1,8 @@
 <%= turbo_stream_from "room_#{@room.id}_presentations" %>
 
-<div class="d-flex gap-4 h-100">
+<div class="d-flex gap-4 h-100"
+  data-controller='fullscreen'
+>
   <div class="w-50"
     style="background-image: url('<%= asset_path("Fundo_1.png") %>'); background-size: cover; background-position: center;"
   >
