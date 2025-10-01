@@ -12,7 +12,7 @@
 development:
   update_presentations:
     class: PresentationAutoUpdateJob
-    schedule: every 15 minutes
+    schedule: "*/15 * * * *"
 
 production:
   clear_solid_queue_finished_jobs:
@@ -20,4 +20,4 @@ production:
     schedule: every hour at minute 12
   update_presentations:
     class: PresentationAutoUpdateJob
-    schedule: every 15 minutes
+    schedule: "*/15 * * * *"
