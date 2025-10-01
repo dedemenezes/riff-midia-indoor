@@ -1,21 +1,7 @@
-<div id="media-file-content">
-    <h1 class='mb-0'><%= presentation.title %></h1>
-    <% if presentation.start_time %>
-      <div class="d-flex align-items-center gap-3">
-        <i class="fa-solid fa-users text-white" style="font-size: 12px;"></i>
-        <p class="mb-0">
-          <%= presentation.presenter_name %>
-        </p>
-      </div>
-      <div class="d-flex align-items-center gap-3">
-        <i style="color: white;" class="fa-solid fa-clock"></i>
-        <p class="mb-0">
-          <%= presentation.start_time.strftime('%H:%M') %> - <%= presentation.end_time.strftime('%H:%M') %>
-        </p>
-      </div>
-    <% end %>
-
-  <% if presentation.image.attached? %>
-    <%= cl_image_tag presentation.image.key %>
-  <% end %>
+<div class="d-flex flex-column gap-3" id='media-file-content'>
+  <%= render 'rooms/name', room: room %>
+  <%= render "presentations/content", presentation: presentation %>
 </div>
+<% if next_presentation %>
+  <%= render "presentations/next_presentation", next_presentation: next_presentation %>
+<% end %>

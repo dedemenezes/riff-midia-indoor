@@ -1,0 +1,19 @@
+<div id="presentation-content">
+  <% if presentation %>
+    <h1 class='mb-0 font-body' style='font-size: 64px;font-weight: 600;'><%= presentation.title %></h1>
+    <% if presentation.presenter_name.present? %>
+      <p class="mb-0" style='font-size: 36px;font-weight: 400;'>
+        Com <span class="fst-italic"><%= presentation.presenter_name %></span>
+      </p>
+    <% end %>
+    <% if presentation.start_time.present? %>
+      <div
+        style="font-size:36px;font-weight:500;max-width:fit-content;background-color:#e1219a;padding-left: 16px;padding-right: 16px;padding-top: 10px;padding-bottom: 10px;"
+      >
+        <p class="mb-0 text-white">
+          <%= presentation.start_time.strftime('%H:%M') %> - <%= presentation.end_time.strftime('%H:%M') %>
+        </p>
+      </div>
+    <% end %>
+  <% end %>
+</div>

@@ -38,16 +38,23 @@ class Presentation < ApplicationRecord
   def broadcast_presentation
     if active?
       broadcast_replace_to "room_#{room.id}_presentations",
-                           partial: "presentations/presentation",
-                           target: "media-file-content",
+                           partial: "presentations/content",
+                           target: "presentation-content",
                            locals: { presentation: self }
     else
-      mf = Presentation.new(title: "Próxima palestra em instantes")
+      mf = Presentation.new(
+        id: self.id,
+        title: "Próxima palestra em instantes",
+        presenter_name: nil,
+        start_time: nil,
+        end_time: nil
+      )
       broadcast_replace_to "room_#{room.id}_presentations",
-                           partial: "presentations/presentation",
-                           target: "media-file-content",
+                           partial: "presentations/content",
+                           target: "presentation-content",
                            locals: { presentation: mf }
-    end
+      end
+      #  target: "presentation-#{self.id}",
 
     broadcast_replace_to "presentations",
                          partial: "presentations/presentation_row",
