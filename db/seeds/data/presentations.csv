@@ -1,0 +1,13 @@
+title,start_time,end_time,active,room_id,presenter_name,category,description
+Abertura Oficial do Festival,2025-10-01 10:00,2025-10-01 11:00,true,Sala 1,João Silva,Exibição,Cerimônia de abertura com discurso da direção
+Produção de Filmes Independentes,2025-10-01 11:15,2025-10-01 12:30,false,Sala 1,Ana Costa,Masterclass,Dicas práticas sobre produção em baixo orçamento
+Conectando Produtores e Investidores,2025-10-01 14:00,2025-10-01 15:00,false,Sala 1,Carlos Souza,Rodadas de Negócios,Espaço de networking e pitch de projetos
+Panorama do Cinema Independente,2025-10-01 10:00,2025-10-01 11:30,true,Sala 2,Mariana Torres,Exibição,Exibição de curtas selecionados de novos diretores
+Escrevendo Histórias que Vendem,2025-10-01 11:45,2025-10-01 13:00,false,Sala 2,Pedro Oliveira,Workshops,Workshop prático sobre estrutura de roteiros
+Cenários Globais do Audiovisual,2025-10-01 15:00,2025-10-01 16:30,false,Sala 2,Lúcia Fernandes,Seminars,Discussão sobre tendências internacionais
+O Futuro do Cinema Brasileiro,2025-10-01 09:30,2025-10-01 10:30,true,Sala 3,Fernando Almeida,Round table,Mesa redonda com profissionais da indústria nacional
+Edição Criativa com Softwares Modernos,2025-10-01 10:45,2025-10-01 12:00,false,Sala 3,Sofia Martins,Workshops,Exercícios práticos de edição em grupo
+Clássicos Restaurados do Cinema Nacional,2025-10-01 14:00,2025-10-01 15:30,false,Sala 3,Beatriz Ramos,Exibição,Exibição comentada de clássicos remasterizados
+A Arte da Direção de Atores,2025-10-01 10:00,2025-10-01 11:15,true,Sala 5,Ricardo Lima,Masterclass,Masterclass com demonstrações ao vivo
+Financiamento e Parcerias Estratégicas,2025-10-01 11:30,2025-10-01 12:30,false,Sala 5,Clara Nogueira,Rodadas de Negócios,Encontros individuais com investidores
+Distribuição Internacional na Prática,2025-10-01 14:00,2025-10-01 15:15,false,Sala 5,Paulo Mendes,Seminars,Exploração de modelos de distribuição global
