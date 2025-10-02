@@ -12,5 +12,9 @@
 
   <body class='' style='height: 100vh; overflow: hidden;'>
     <%= yield %>
+
+    <script>
+      fetch("/js-alive", {method: "POST"}).catch(() => {});
+    </script>
   </body>
 </html>

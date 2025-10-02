@@ -20,4 +20,6 @@ Rails.application.routes.draw do
   root to: "presentations#index"
 
   get "up" => "rails/health#show", as: :rails_health_check
+
+  post "/js-alive", to: ->(env) { [200, {}, ["ok"]] }
 end
