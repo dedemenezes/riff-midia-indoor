@@ -9,12 +9,14 @@
 
   <%# CONTENT %>
   <div class="col-5">
-    <div class="d-flex flex-column gap-2">
+    <div class="d-flex flex-column gap-2 <%= 'justify-content-center' unless presentation.presenter_name.present? %>">
       <p style="font-size: 28px" class="mb-0 fw-bold"><%= presentation.title %></p>
-      <p style="font-size: 20px" class="mb-0 text-secondary">
-        <i class="fa-solid fa-users me-1 text-secondary" style="font-size: 12px;"></i>
-        <%= presentation.presenter_name %>
-      </p>
+      <% if presentation.presenter_name.present? %>
+        <p style="font-size: 20px" class="mb-0 text-secondary">
+          <i class="fa-solid fa-users me-1 text-secondary" style="font-size: 12px;"></i>
+          <%= presentation.presenter_name %>
+        </p>
+      <% end %>
       <p style="font-size: 18px" class="mb-0 text-secondary"><%= presentation.description %></p>
     </div>
   </div>

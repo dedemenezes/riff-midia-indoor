@@ -22,6 +22,10 @@ module Avo
         field :image, as: :file, visible: -> { resource.record.image.present? }
         field :room, as: :belongs_to
       end
+
+      def actions
+        action Avo::Actions::GeneratePreviewLink
+      end
     end
   end
 end

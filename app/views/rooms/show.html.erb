@@ -8,7 +8,7 @@
     style="background-image: url('<%= asset_path("Fundo_1.png") %>'); background-size: cover; background-position: center;"
   >
   </div>
-  <div class="w-50 pb-5 px-4 d-flex flex-column <%= @next_presentation.nil? ? '' : 'justify-content-between' %>">
+  <div class="w-50 pb-5 px-4 d-flex flex-column justify-content-between ">
     <%= image_tag "RM25_Horizontal_Preto.png", width: '240px', class: 'align-self-end justify-self-start' %>
     <%= render 'presentations/presentation', room: @room, presentation: @presentation, next_presentation: @next_presentation %>
 
