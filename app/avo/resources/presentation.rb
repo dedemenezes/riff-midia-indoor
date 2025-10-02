@@ -19,7 +19,7 @@ module Avo
         field :start_time, as: :date_time, sortable: true
         field :end_time, as: :date_time, sortable: true
         # field :room_id, as: :number
-        field :image, as: :file, visible: -> { resource.record.image.present? }
+        field :image, as: :file
         field :room, as: :belongs_to
       end
 
