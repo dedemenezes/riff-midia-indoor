@@ -4,13 +4,17 @@
   data-controller='fullscreen'
   data-action='click->fullscreen#enterFullscreen touchstart->fullscreen#enterFullscreen'
 >
-  <div class="w-50"
-    style="background-image: url('<%= asset_path("Fundo_1.png") %>'); background-size: cover; background-position: center;"
-  >
-  </div>
-  <div class="w-50 pb-5 px-4 d-flex flex-column justify-content-between ">
-    <%= image_tag "RM25_Horizontal_Preto.png", width: '240px', class: 'align-self-end justify-self-start' %>
-    <%= render 'presentations/presentation', room: @room, presentation: @presentation, next_presentation: @next_presentation %>
+  <% if @presentation.image.attached? %>
+    <%= cl_image_tag @presentation.image.key, width: "100%", height: "100%" %>
+  <% else %>
+    <div class="w-50"
+      style="background-image: url('<%= asset_path("Fundo_1.png") %>'); background-size: cover; background-position: center;"
+    >
+    </div>
+    <div class="w-50 pb-5 px-4 d-flex flex-column justify-content-between ">
+      <%= image_tag "RM25_Horizontal_Preto.png", width: '240px', class: 'align-self-end justify-self-start' %>
+      <%= render 'presentations/presentation', room: @room, presentation: @presentation, next_presentation: @next_presentation %>
 
-  </div>
+    </div>
+  <% end %>
 </div>
