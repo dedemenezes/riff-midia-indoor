@@ -13,10 +13,10 @@ class Avo::ToolsController < Avo::ApplicationController
     scraped_csv_path = Rails.root.join('tmp', 'scraped_presentations.csv')
 
     begin
-      unless File.exist?(scraped_csv_path)
+      # unless File.exist?(scraped_csv_path)
         # Scrape and generate CSV
         PresentationScraperService.call
-      end
+      # end
 
       # Parse the scraped CSV
       presentations_data = parse_csv_file(scraped_csv_path, errors)
