@@ -47,7 +47,7 @@ class PresentationScraperService
       accordion.search(".eventos_gratuitos").each do |element|
         event = extract_event_data(element, event_date)
         @events << event
-        Rails.logger.info "✅ Added #{event[:title]}"
+        Rails.logger.info "✅ Added #{event[:title]} from #{event[:start_time]} to #{event[:end_time]}"
       end
     end
   end

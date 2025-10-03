@@ -76,7 +76,8 @@ class Avo::ToolsController < Avo::ApplicationController
                   notice: "Successfully imported #{presentations_data.count} presentations (deleted all previous presentations)"
     rescue ActiveRecord::RecordInvalid => e
       redirect_to presentation_importer_path,
-                  alert: "Import failed during save: #{e.message}. No changes were made."
+                  alert: "Import failed during save: #{e.message}. No changes were made.",
+                  status: :unprocessable_entity
     end
   end
 
