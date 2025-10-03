@@ -66,30 +66,32 @@ class Presentation < ApplicationRecord
   end
 
   def broadcast_room_presentations
-    now = Time.current
+    I18n.with_locale(:'pt-BR') do
+      now = Time.current
 
-    # Find active presentation for this room
-    active_presentation = room.presentations.find do |p|
-      p.start_time <= now && p.end_time >= now
+      # Find active presentation for this room
+      active_presentation = room.presentations.find do |p|
+        p.start_time <= now && p.end_time >= now
+      end
+
+      # Find upcoming presentations for this room
+      upcoming_presentations = room.presentations
+                                   .where("start_time > ?", now)
+                                   .order(start_time: :asc)
+                                   .limit(2)
+
+      # Build the array of presentations to display (max 2)
+      presentations_to_display = []
+      presentations_to_display << active_presentation if active_presentation
+      presentations_to_display.concat(upcoming_presentations.to_a)
+      presentations_to_display = presentations_to_display.uniq.first(2)
+
+      # Broadcast replacement to the room's presentations wrapper
+      # binding.b
+      broadcast_replace_to "presentations",
+                          target: dom_id(room, :presentations),
+                          partial: "rooms/presentations",
+                          locals: { room: room, presentations: presentations_to_display }
     end
-
-    # Find upcoming presentations for this room
-    upcoming_presentations = room.presentations
-                                 .where("start_time > ?", now)
-                                 .order(start_time: :asc)
-                                 .limit(2)
-
-    # Build the array of presentations to display (max 2)
-    presentations_to_display = []
-    presentations_to_display << active_presentation if active_presentation
-    presentations_to_display.concat(upcoming_presentations.to_a)
-    presentations_to_display = presentations_to_display.uniq.first(2)
-
-    # Broadcast replacement to the room's presentations wrapper
-    # binding.b
-    broadcast_replace_to "presentations",
-                        target: dom_id(room, :presentations),
-                        partial: "rooms/presentations",
-                        locals: { room: room, presentations: presentations_to_display }
   end
 end
