@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   get '/jobs', to: redirect('/users/sign_in')
 
   resources :rooms, only: :show
+  resources :static_presentations, only: :show
   # resources :presentations, only: %i[ new create ]
 
   devise_for :users
