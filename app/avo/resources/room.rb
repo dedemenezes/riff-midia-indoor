@@ -9,6 +9,9 @@ class Avo::Resources::Room < Avo::BaseResource
   def fields
     field :id, as: :id
     field :name, as: :text
-    field :presentations, as: :has_many
+    # field :presentations, as: :has_many
+    field :presentations,
+      as: :has_many,
+      scope: -> { query.where("start_time >= ?", Time.current - 50.minutes).order(start_time: :asc) }
   end
 end
