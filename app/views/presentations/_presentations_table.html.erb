@@ -3,14 +3,16 @@
   <div class="col-12 d-flex align-items-center">
     <div class="container shadow">
 
-      <%= render "table_header" %>
-      <div id="presentation-slideshow" data-controller="slideshow">
-        <% presentations_by_room.each_with_index do |(room, presentations), page_index| %>
-          <div class="slide-page <%= 'active' if page_index == 0 %>" data-slideshow-target="slide">
-            <%= render "rooms/presentations", room: room, presentations: presentations %>
-          </div>
-        <% end %>
-      </div>
+      <% unless presentations_by_room.empty? || presentations_by_room.nil? %>
+        <%= render "table_header" %>
+        <div id="presentation-slideshow" data-controller="slideshow">
+          <% presentations_by_room.each_with_index do |(room, presentations), page_index| %>
+            <div class="slide-page <%= 'active' if page_index == 0 %>" data-slideshow-target="slide">
+              <%= render "rooms/presentations", room: room, presentations: presentations %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
 
     </div>
   </div>

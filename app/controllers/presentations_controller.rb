@@ -23,7 +23,7 @@ class PresentationsController < ApplicationController
   end
 
   def normal_presentations(now)
-    Room.includes(:presentations).map do |room|
+    Room.includes(:presentations).active.map do |room|
       active = room.presentations.find do |p|
         p.start_time <= now && p.end_time >= now
       end

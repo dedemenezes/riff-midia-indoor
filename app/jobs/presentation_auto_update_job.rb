@@ -24,7 +24,7 @@ class PresentationAutoUpdateJob < ApplicationJob
   def expired_presentations
     Presentation
       .where(active: true)
-      .where("end_time <= ?", @current_time)
+      .where("end_time <= ?", @current_time - 10.minutes)
   end
 
   def current_presentations
@@ -32,7 +32,7 @@ class PresentationAutoUpdateJob < ApplicationJob
       .where(active: false)
       .where(
         "start_time <= ? AND end_time > ?",
-        @current_time, @current_time
+        @current_time - 10.minutes, @current_time
       )
   end
 

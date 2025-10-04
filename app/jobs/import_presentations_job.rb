@@ -70,7 +70,6 @@ class ImportPresentationsJob < ApplicationJob
       # Check required fields
       if row[:title].blank? || row[:start_time].blank? || row[:end_time].blank?
         warning << "Row #{index + 1}: [ERROR] Missing required fields"
-        next
       end
 
       # Add room object to data

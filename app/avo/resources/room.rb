@@ -9,6 +9,7 @@ class Avo::Resources::Room < Avo::BaseResource
   def fields
     field :id, as: :id
     field :name, as: :text
+    field :visible, as: :boolean
     # field :presentations, as: :has_many
     field :presentations,
       as: :has_many,
