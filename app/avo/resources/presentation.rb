@@ -18,7 +18,7 @@ module Avo
         field :end_time, as: :date_time, sortable: true
         field :title, as: :text
         field :presenter_name, as: :text
-        field :category, as: :select, options: ::Presentation::CATEGORIES.map { |c| [c, c] }.to_h
+        field :category, as: :select, options: ::Presentation::CATEGORIES.map { |c| [c, c] }.to_h, sortable: true
         field :description, as: :text, hide_on: %i[index]
         # field :room_id, as: :number
         field :image, as: :file

@@ -5,6 +5,8 @@ class PresentationAutoUpdateJob < ApplicationJob
     # @current_time = DateTime.new(2025,9,30, 17, 29)
     @current_time = Time.current
 
+    Rails.logger.info "[RAILS::LOGGER::INFO] Auto-update cycle starting at #{@current_time}"
+
     # deactivate presentations
     expired_presentations.find_each do |presentation|
       presentation.update!(active: false)
@@ -37,6 +39,7 @@ class PresentationAutoUpdateJob < ApplicationJob
   end
 
   def deactivate_room_active_presentations(presentation)
+    Rails.logger.info "[RAILS::LOGGER::INFO] Deactivating #{presentation.title} | Start: #{presentation.start_time} | End: #{presentation.end_time}"
     presentation
       .room
       .presentations
