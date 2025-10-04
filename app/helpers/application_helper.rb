@@ -16,4 +16,8 @@ module ApplicationHelper
       )
     end
   end
+
+  def formatted_presentation_date(presentation)
+    presentation.start_time.to_date == Date.current ? "Hoje" : I18n.l(presentation.start_time.to_date, format: :short)
+  end
 end
