@@ -13,6 +13,6 @@ class Avo::Resources::Room < Avo::BaseResource
     # field :presentations, as: :has_many
     field :presentations,
       as: :has_many,
-      scope: -> { query.where("start_time >= ?", Time.current - 50.minutes).order(start_time: :asc) }
+      scope: -> { query.where("start_time >= ?", Time.current.to_date).order(start_time: :asc) }
   end
 end
