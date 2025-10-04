@@ -74,10 +74,12 @@ class Avo::ToolsController < Avo::ApplicationController
 
       redirect_to presentation_importer_path,
                   notice: "Successfully imported #{presentations_data.count} presentations (deleted all previous presentations)"
+      Rails.logger.info("[RAILS::LOGGER::INFO] Created new presentation")
     rescue ActiveRecord::RecordInvalid => e
       redirect_to presentation_importer_path,
                   alert: "Import failed during save: #{e.message}. No changes were made.",
                   status: :unprocessable_entity
+      Rails.logger.info("[RAILS::LOGGER::INFO] COULD NOT create new presentation")
     end
   end
 
