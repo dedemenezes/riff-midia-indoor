@@ -7,16 +7,21 @@ class PresentationAutoUpdateJob < ApplicationJob
 
     Rails.logger.info "[RAILS::LOGGER::INFO] Auto-update cycle starting at #{@current_time}"
 
+    expired = expired_presentations
+    current = current_presentations
+
+    Rails.logger.info "[AUTO-UPDATE] Expired: #{expired.pluck(:id, :title, :active)}"
+    Rails.logger.info "[AUTO-UPDATE] To activate: #{current.pluck(:id, :title, :active)}"
+
+
     # deactivate presentations
-    expired_presentations.find_each do |presentation|
+    expired.find_each do |presentation|
       presentation.update!(active: false)
       Rails.logger.info("[RAILS::LOGGER::INFO] Deactivated expired: #{presentation.title} in #{presentation.room.name}")
     end
 
     # Activate presentations
-    current_presentations.find_each do |presentation|
-      deactivate_room_active_presentations(presentation)
-
+    current.find_each do |presentation|
       presentation.update!(active: true)
       Rails.logger.info "[RAILS::LOGGER::INFO] Activated current: #{presentation.title} in #{presentation.room.name}"
     end
@@ -36,14 +41,5 @@ class PresentationAutoUpdateJob < ApplicationJob
         "start_time <= ? AND end_time > ?",
         @current_time + 10.minutes, @current_time
       )
-  end
-
-  def deactivate_room_active_presentations(presentation)
-    Rails.logger.info "[RAILS::LOGGER::INFO] Deactivating #{presentation.title} | Start: #{presentation.start_time} | End: #{presentation.end_time}"
-    presentation
-      .room
-      .presentations
-      .where(active: true)
-      .update_all(active: false)
   end
 end

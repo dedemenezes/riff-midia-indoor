@@ -87,6 +87,7 @@ class Presentation < ApplicationRecord
       presentations_to_display << active_presentation if active_presentation
       presentations_to_display.concat(upcoming_presentations.to_a)
       presentations_to_display = presentations_to_display.uniq.first(2)
+      Rails.logger.info "[Presentation#broadcast_room_presentations] - #{presentations_to_display.first.title} || #{presentations_to_display.last.title}"
 
       broadcast_replace_to "presentations",
                            target: dom_id(room, :presentations),
