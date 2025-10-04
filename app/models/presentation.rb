@@ -10,7 +10,7 @@ class Presentation < ApplicationRecord
     "Workshops"
   ]
 
-  validates :active, inclusion: { in: [true, false] }
+  # validates :active, inclusion: { in: [true, false] }
   belongs_to :room
   has_one_attached :image
 
