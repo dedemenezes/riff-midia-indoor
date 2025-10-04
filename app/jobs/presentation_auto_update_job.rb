@@ -34,7 +34,7 @@ class PresentationAutoUpdateJob < ApplicationJob
       .where(active: false)
       .where(
         "start_time <= ? AND end_time > ?",
-        @current_time - 10.minutes, @current_time
+        @current_time + 10.minutes, @current_time
       )
   end
 
