@@ -12,7 +12,7 @@ module Avo
       # }
 
       def fields
-        field :id, as: :id, sortable: false
+        field :room, as: :belongs_to
         field :active, as: :boolean, sortable: true
         field :start_time, as: :date_time, sortable: true
         field :end_time, as: :date_time, sortable: true
@@ -22,7 +22,7 @@ module Avo
         field :description, as: :text, hide_on: %i[index]
         # field :room_id, as: :number
         field :image, as: :file
-        field :room, as: :belongs_to
+        field :id, as: :id, sortable: false
       end
 
       def actions
