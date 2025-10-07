@@ -99,13 +99,14 @@ class PresentationAutoUpdateJob < ApplicationJob
         sorted = room.presentations.order(start_time: :asc)
         active_index = sorted.index(active_presentation)
         next_presentation = sorted[active_index + 1] if active_index
-
-        Turbo::StreamsChannel.broadcast_replace_to(
-          "room_#{room.id}_presentations",
-          partial: "presentations/next_presentation",
-          target: "next-presentation",
-          locals: { next_presentation: next_presentation }
-        )
+        if next_presentation
+          Turbo::StreamsChannel.broadcast_replace_to(
+            "room_#{room.id}_presentations",
+            partial: "presentations/next_presentation",
+            target: "next-presentation",
+            locals: { next_presentation: next_presentation }
+          )
+        end
       else
         # No active presentation - show skeleton/placeholder
         skeleton = Presentation.new(
