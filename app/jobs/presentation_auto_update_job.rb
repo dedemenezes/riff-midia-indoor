@@ -1,4 +1,6 @@
 class PresentationAutoUpdateJob < ApplicationJob
+  ACTIVATION_WINDOW  = 10.minutes
+  DEACTIVATION_WINDOW = 10.minutes
   queue_as :default
 
   def perform(*args)
@@ -42,16 +44,14 @@ class PresentationAutoUpdateJob < ApplicationJob
   def expired_presentations
     Presentation
       .where(active: true)
-      .where("end_time <= ?", @current_time - 10.minutes)
+      .where("end_time <= ?", @current_time + DEACTIVATION_WINDOW)
   end
 
   def current_presentations
     Presentation
       .where(active: false)
-      .where(
-        "start_time <= ? AND end_time > ?",
-        @current_time + 10.minutes, @current_time
-      )
+      .where("start_time <= ?", @current_time + ACTIVATION_WINDOW)
+      .where("end_time > ?", @current_time)
   end
 
   # CHANGED: Extracted from model - broadcasts to index page (presentations table)
