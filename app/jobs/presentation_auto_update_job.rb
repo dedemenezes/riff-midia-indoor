@@ -7,26 +7,15 @@ class PresentationAutoUpdateJob < ApplicationJob
     @current_time = Time.current
     Rails.logger.info "[RAILS::LOGGER::INFO] Auto-update cycle starting at #{@current_time}"
 
-    expired = expired_presentations
-    current = current_presentations
-
-    Rails.logger.info "[AUTO-UPDATE] Expired: #{expired.pluck(:id, :title, :active, :start_time, :end_time)}"
-    Rails.logger.info "[AUTO-UPDATE] To activate: #{current.pluck(:id, :title, :active, :start_time, :end_time)}"
-
     affected_rooms = Set.new
 
-    expired.find_each do |presentation|
-      affected_rooms << presentation.room
-      presentation.update_columns(active: false, updated_at: Time.current)
-      Rails.logger.info("[RAILS::LOGGER::INFO] Deactivated expired: #{presentation.title} in #{presentation.room.name}")
+    # Process each room independently
+    Room.find_each do |room|
+      changed = process_room(room)
+      affected_rooms << room if changed
     end
 
-    current.find_each do |presentation|
-      affected_rooms << presentation.room
-      presentation.update_columns(active: true, updated_at: Time.current)
-      Rails.logger.info "[RAILS::LOGGER::INFO] Activated current: #{presentation.title} in #{presentation.room.name}"
-    end
-
+    # Broadcast updates for affected rooms
     affected_rooms.each do |room|
       broadcast_room_presentations(room)
       broadcast_individual_room_page(room)
@@ -36,16 +25,51 @@ class PresentationAutoUpdateJob < ApplicationJob
     Rails.logger.info "[RAILS::LOGGER::INFO] Auto-update cycle completed"
   end
 
-  def expired_presentations
-    Presentation
-      .where(active: true)
+  private
+
+  def process_room(room)
+    changed = false
+    current_active = room.presentations.where(active: true).first
+
+    if current_active && should_deactivate?(current_active)
+      Rails.logger.info "[AUTO-UPDATE] Room #{room.id}: Deactivating '#{current_active.title}' (ends at #{current_active.end_time})"
+      current_active.update_columns(active: false, updated_at: Time.current)
+      changed = true
+
+      next_presentation = room.presentations
+                              .where(active: false)
+                              .where("start_time > ?", @current_time)
+                              .order(start_time: :asc)
+                              .first
+
+      if next_presentation
+        Rails.logger.info "[AUTO-UPDATE] Room #{room.id}: Activating next '#{next_presentation.title}' (starts at #{next_presentation.start_time})"
+        next_presentation.update_columns(active: true, updated_at: Time.current)
+      else
+        Rails.logger.warn "[AUTO-UPDATE] Room #{room.id}: No upcoming presentations to activate"
+      end
+    elsif current_active.nil?
+      next_presentation = room.presentations
+                              .where(active: false)
+                              .where("start_time >= ?", @current_time)
+                              .order(start_time: :asc)
+                              .first
+
+      if next_presentation
+        Rails.logger.info "[AUTO-UPDATE] Room #{room.id}: No active presentation, activating '#{next_presentation.title}'"
+        next_presentation.update_columns(active: true, updated_at: Time.current)
+        changed = true
+      else
+        Rails.logger.debug "[AUTO-UPDATE] Room #{room.id}: No presentations to activate"
+      end
+    end
+
+    changed
   end
 
-  def current_presentations
-    Presentation
-      .where(active: false)
-      .where("start_time <= ?", @current_time + ACTIVATION_WINDOW)
-      .where("end_time > ?", @current_time)
+  def should_deactivate?(presentation)
+    # Deactivate 10 minutes before end_time
+    presentation.end_time - DEACTIVATION_WINDOW <= @current_time
   end
 
   # CHANGED: Extracted from model - broadcasts to index page (presentations table)
