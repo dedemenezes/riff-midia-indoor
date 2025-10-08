@@ -3,6 +3,21 @@ class PresentationScraperService
   require "nokogiri"
   require 'csv'
 
+  MONTHS_PT = {
+    "janeiro" => "01",
+    "fevereiro" => "02",
+    "março" => "03",
+    "abril" => "04",
+    "maio" => "05",
+    "junho" => "06",
+    "julho" => "07",
+    "agosto" => "08",
+    "setembro" => "09",
+    "outubro" => "10",
+    "novembro" => "11",
+    "dezembro" => "12"
+  }.freeze
+
   MONTHS = {
     "Janeiro" => "January",
     "Fevereiro" => "February",
@@ -44,12 +59,30 @@ class PresentationScraperService
       event_date = accordion.search('.accordion-toggle').first.text.strip
       Rails.logger.info "Scraping events for #{event_date}"
 
+      parsed_event_date = parse_event_date(event_date)
+
+      next if parsed_event_date.nil? || parsed_event_date < Date.current
+
       accordion.search(".eventos_gratuitos").each do |element|
         event = extract_event_data(element, event_date)
         @events << event
         Rails.logger.info "✅ Added #{event[:title]} from #{event[:start_time]} to #{event[:end_time]}"
       end
     end
+  end
+
+  def parse_event_date(event_date)
+    # Downcase and strip accents
+    normalized = event_date.downcase.tr('ÁÀÂÃÉÈÊÍÌÎÓÒÔÕÚÙÛÇáàâãéèêíìîóòôõúùûç', 'AAAAEEEIIIOOOOUUUCaaaaeeeiiioooouuuc')
+
+    # Match day, month (Portuguese), and year
+    if normalized =~ /(\d{2})\s+de\s+([a-z]+)\s+de\s+(\d{4})/
+      day, month_name, year = $1, $2, $3
+      month = MONTHS_PT[month_name]
+      return Date.parse("#{year}-#{month}-#{day}") if month
+    end
+
+    nil # return nil if parsing fails
   end
 
   def extract_event_data(element, event_date)
