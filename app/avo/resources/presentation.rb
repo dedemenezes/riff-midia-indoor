@@ -3,7 +3,7 @@ module Avo
     class Presentation < Avo::BaseResource
       self.default_sort_column = :start_time
       self.default_sort_direction = :asc
-      self.index_query = -> { query.where("start_time >= ?", Time.current - 50.minutes) }
+      self.index_query = -> { query.where("start_time >= ?", Date.current) }
 
       # self.includes = []
       # self.attachments = []
