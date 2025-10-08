@@ -10,14 +10,11 @@ class PresentationAutoUpdateJob < ApplicationJob
     expired = expired_presentations
     current = current_presentations
 
-    Rails.logger.info "[AUTO-UPDATE] Expired: #{expired.pluck(:id, :title, :active)}"
-    Rails.logger.info "[AUTO-UPDATE] To activate: #{current.pluck(:id, :title, :active)}"
+    Rails.logger.info "[AUTO-UPDATE] Expired: #{expired.pluck(:id, :title, :active, :start_time, :end_time)}"
+    Rails.logger.info "[AUTO-UPDATE] To activate: #{current.pluck(:id, :title, :active, :start_time, :end_time)}"
 
-    # CHANGED: Collect affected rooms before updating so we can broadcast once per room at the end
     affected_rooms = Set.new
 
-    # CHANGED: Use update_columns instead of update! to skip callbacks during batch job
-    # This prevents multiple conflicting broadcasts while updates are in progress
     expired.find_each do |presentation|
       affected_rooms << presentation.room
       presentation.update_columns(active: false, updated_at: Time.current)
@@ -30,11 +27,9 @@ class PresentationAutoUpdateJob < ApplicationJob
       Rails.logger.info "[RAILS::LOGGER::INFO] Activated current: #{presentation.title} in #{presentation.room.name}"
     end
 
-    # CHANGED: Now that all updates are complete, broadcast once per affected room
-    # Broadcasts to both: index page (presentations_table) AND individual room pages (room/:id)
     affected_rooms.each do |room|
-      broadcast_room_presentations(room)  # Updates index page
-      broadcast_individual_room_page(room)  # Updates room/:id page
+      broadcast_room_presentations(room)
+      broadcast_individual_room_page(room)
       Rails.logger.info "[AUTO-UPDATE] Broadcasted updates for #{room.name}"
     end
 
@@ -44,7 +39,6 @@ class PresentationAutoUpdateJob < ApplicationJob
   def expired_presentations
     Presentation
       .where(active: true)
-      .where("end_time <= ?", @current_time + DEACTIVATION_WINDOW)
   end
 
   def current_presentations
