@@ -77,7 +77,6 @@ class Presentation < ApplicationRecord
         p.start_time <= now && p.end_time >= now
       end
 
-
       upcoming_presentations = room.presentations
                                    .where("start_time > ?", now)
                                    .order(start_time: :asc)
