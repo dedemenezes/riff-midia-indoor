@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>RiffMidiaIndoor</title>
+    <% if content_for(:head) %>
+      <%= yield :head %>
+    <% else %>
+      <title>RioMarket - Festival do Rio</title>
+    <% end %>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>

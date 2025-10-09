@@ -1,3 +1,7 @@
+<%= content_for :head do %>
+  <title><%= @room.name %> | RioMarket - Festival do Rio</title>
+<% end %>
+
 <%= turbo_stream_from "room_#{@room.id}_presentations" %>
 
 <div class="d-flex gap-4 h-100"
