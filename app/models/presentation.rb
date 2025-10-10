@@ -33,6 +33,8 @@ class Presentation < ApplicationRecord
       return unless active_presentation_index
 
       next_presentation = sorted_presentations[active_presentation_index + 1]
+      return unless next_presentation
+
       broadcast_replace_to "room_#{room.id}_presentations",
                            partial: "presentations/next_presentation",
                            target: "next-presentation",
